@@ -1,8 +1,9 @@
 package com.ku6.utils 
 {
     import flash.system.Capabilities;
+    
 	/**
-     * ...
+     * Client Log
      * @author Seven Yu
      */
     public final class ClientlLog 
@@ -52,6 +53,14 @@ package com.ku6.utils
         }
         
         /**
+         * 清除历史 log
+         */
+        public static function clear():void
+        {
+            _arrLogs = [];
+        }
+        
+        /**
          * 返回日志信息
          */
         public static function get log():String
@@ -67,7 +76,6 @@ package com.ku6.utils
             if (!_systemInfo)
             {
                 _systemInfo = [];
-                _systemInfo.push('CPU:\t' + Capabilities.cpuArchitecture);
                 _systemInfo.push('OS:\t' + Capabilities.os);
                 _systemInfo.push('Player Version:\t' + Capabilities.version + (Capabilities.isDebugger ? ' (Debug Player)' : ''));
                 _systemInfo.push('Player Type:\t' + Capabilities.playerType);
@@ -86,6 +94,9 @@ package com.ku6.utils
             return new Date().getTime();
         }
         
+        /**
+         * 当前时间描述字符
+         */
         public static function get timeString():String
         {
             return new Date().toLocaleString();
