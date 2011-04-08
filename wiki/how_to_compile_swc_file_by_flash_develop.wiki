@@ -1,0 +1,7 @@
+#labels swc,compile,flashdevelop
+= 如何用 Flash Develop 编译 swc =
+
+ # 项目属性中将 output 扩展名改为 swc
+ # 选中 No Output 项
+ # Build 标签页中, Pre-Build Command Line 中填入 `"$(CompilerPath)\bin\compc.exe" -include-sources "$(ProjectDir)\src" -output "$(OutputDir)\$(OutputName)"`
+ # 编译
