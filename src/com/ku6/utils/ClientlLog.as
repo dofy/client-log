@@ -30,7 +30,7 @@ package com.ku6.utils
         
         
         /**
-         * 增加一天日志
+         * 增加一条日志
          * ClientLog.record('for example: {0} is {1} {0}.', 'Apple', 'an');
          * // result: for example: Apple is an Apple.
          * 另外有个特殊标记:
