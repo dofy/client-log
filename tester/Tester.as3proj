@@ -2,9 +2,9 @@
 <project>
   <!-- Output SWF options -->
   <output>
-    <movie disabled="True" />
+    <movie disabled="False" />
     <movie input="" />
-    <movie path="bin\ClientLog.swc" />
+    <movie path="bin\Tester.swf" />
     <movie fps="30" />
     <movie width="800" />
     <movie height="600" />
@@ -47,7 +47,7 @@
   </includeLibraries>
   <!-- SWC Libraries -->
   <libraryPaths>
-    <!-- example: <element path="..." /> -->
+    <element path="lib\ClientLog.swc" />
   </libraryPaths>
   <!-- External Libraries -->
   <externalLibraryPaths>
@@ -67,14 +67,14 @@
   </library>
   <!-- Class files to compile (other referenced classes will automatically be included) -->
   <compileTargets>
-    <compile path="src\com\ku6\utils\ClientlLog.as" />
+    <compile path="src\Main.as" />
   </compileTargets>
   <!-- Paths to exclude from the Project Explorer tree -->
   <hiddenPaths>
     <!-- example: <hidden path="..." /> -->
   </hiddenPaths>
   <!-- Executed before build -->
-  <preBuildCommand>"$(CompilerPath)\bin\compc.exe" -include-sources "$(ProjectDir)\src" -output "$(OutputDir)\$(OutputName)"</preBuildCommand>
+  <preBuildCommand />
   <!-- Executed after build -->
   <postBuildCommand alwaysRun="False" />
   <!-- Other project options -->
