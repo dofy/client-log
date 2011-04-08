@@ -1,4 +1,4 @@
-#how to compile a swc file by FlashDevelop
+#summary How to compile a swc file by FlashDevelop
 
 = 如何用 Flash Develop 编译 swc =
 
