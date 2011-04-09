@@ -1,5 +1,12 @@
 package com.ku6.utils 
 {
+    import flash.events.Event;
+    import flash.events.IOErrorEvent;
+    import flash.events.SecurityErrorEvent;
+    import flash.net.URLLoader;
+    import flash.net.URLRequest;
+    import flash.net.URLRequestMethod;
+    import flash.net.URLVariables;
     import flash.system.Capabilities;
     
 	/**
@@ -21,6 +28,8 @@ package com.ku6.utils
         // 分割线
         public static const LONG_LINE:String = '-------------------------------------------------';
         
+        // 日志id
+        private static var _id:Number = 0;
         
         // 保存日志数据
         private static var _arrLogs:Array = [];
@@ -57,7 +66,9 @@ package com.ku6.utils
          */
         public static function clear():void
         {
+            _id = 0;
             _arrLogs = [];
+            _systemInfo = null;
         }
         
         /**
@@ -65,7 +76,7 @@ package com.ku6.utils
          */
         public static function get log():String
         {
-            return systemInfo + NEW_LINE + LONG_LINE + NEW_LINE + _arrLogs.join(NEW_LINE);
+            return systemInfo + NEW_LINE + _arrLogs.join(NEW_LINE);
         }
         
         /**
@@ -76,22 +87,31 @@ package com.ku6.utils
             if (!_systemInfo)
             {
                 _systemInfo = [];
+                _systemInfo.push(LONG_LINE);
+                _systemInfo.push('Log ID:\t' + id);
+                _systemInfo.push(LONG_LINE);
                 _systemInfo.push('OS:\t' + Capabilities.os);
                 _systemInfo.push('Player Version:\t' + Capabilities.version + (Capabilities.isDebugger ? ' (Debug Player)' : ''));
                 _systemInfo.push('Player Type:\t' + Capabilities.playerType);
                 _systemInfo.push('Language:\t' + Capabilities.language);
                 _systemInfo.push('Screen Size:\t' + Capabilities.screenResolutionX + ' * ' + Capabilities.screenResolutionY);
+                _systemInfo.push(LONG_LINE);
             }
             
             return _systemInfo.join(NEW_LINE);
         }
         
         /**
-         * 当前时间毫秒数
+         * 日志 ID
+         * 调用 clear() 方法前不会改变.
          */
-        public static function get time():Number
+        public static function get id():String
         {
-            return new Date().getTime();
+            if (_id == 0)
+            {
+                _id = new Date().getTime();
+            }
+            return _id.toString();
         }
         
         /**
@@ -100,6 +120,31 @@ package com.ku6.utils
         public static function get timeString():String
         {
             return new Date().toLocaleString();
+        }
+        
+        /**
+         * 发送日志报告
+         * @param	url
+         * @param	completeCallback
+         * @param	errorCallback
+         */
+        public static function send(url:String, completeCallback:Function, errorCallback:Function):void
+        {
+            var loader:URLLoader = new URLLoader();
+            var request:URLRequest = new URLRequest(url);
+            var vars:URLVariables = new URLVariables();
+            
+            vars.id = id;
+            vars.log = log;
+            
+            request.method = URLRequestMethod.POST;
+            request.data = vars;
+            
+            loader.addEventListener(Event.COMPLETE, completeCallback);
+            loader.addEventListener(IOErrorEvent.IO_ERROR, errorCallback);
+            loader.addEventListener(SecurityErrorEvent.SECURITY_ERROR, errorCallback);
+            
+            loader.load(request);
         }
         
     }
