@@ -12,6 +12,7 @@ package com.ku6.utils
 	/**
      * Client Log
      * @author Seven Yu
+     * @uri http://code.google.com/p/client-log/
      */
     public final class ClientlLog 
     {
