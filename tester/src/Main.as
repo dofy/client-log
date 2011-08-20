@@ -1,4 +1,4 @@
-package 
+package
 {
     import com.ku6.utils.ClientlLog;
     import flash.display.Sprite;
@@ -8,27 +8,29 @@ package
     import flash.events.Event;
     import flash.text.TextField;
     import flash.text.TextFormat;
-	
-	/**
-	 * ...
-	 * @author Seven Yu
-	 */
-	public class Main extends Sprite 
-	{
-		
+    
+    /**
+     * ...
+     * @author Seven Yu
+     */
+    public class Main extends Sprite
+    {
+        
         private var output:TextField = new TextField();
         
         
-		public function Main():void 
-		{
-			if (stage) init();
-			else addEventListener(Event.ADDED_TO_STAGE, init);
-		}
-		
-		private function init(e:Event = null):void 
-		{
-			removeEventListener(Event.ADDED_TO_STAGE, init);
-			// entry point
+        public function Main():void
+        {
+            if (stage)
+                init();
+            else
+                addEventListener(Event.ADDED_TO_STAGE, init);
+        }
+        
+        private function init(e:Event = null):void
+        {
+            removeEventListener(Event.ADDED_TO_STAGE, init);
+            // entry point
             
             stage.addEventListener(Event.RESIZE, resizeHandler);
             
@@ -38,7 +40,7 @@ package
             output.defaultTextFormat = new TextFormat('courier new');
             addChild(output);
             resizeHandler();
-
+            
             ClientlLog.record('{t}\tsome log...');
             ClientlLog.record('{t}\t{0} is {1} {0}\n\n', 'Apple', 'an');
             
@@ -55,22 +57,21 @@ package
             
             output.appendText(ClientlLog.id);
             
-            ClientlLog.send('log.php', function (evt:Event):void
-            {
-                output.appendText(ClientlLog.NEW_LINE + 'Log sent.');
-            }, 
-            function (evt:ErrorEvent):void
-            {
-                output.appendText(ClientlLog.NEW_LINE + 'Log send error:' + evt.text);
-            });
-		}
+            ClientlLog.send('log.php', function(evt:Event):void
+                {
+                    output.appendText(ClientlLog.NEW_LINE + 'Log sent.');
+                }, function(evt:ErrorEvent):void
+                {
+                    output.appendText(ClientlLog.NEW_LINE + 'Log send error:' + evt.text);
+                });
+        }
         
-        private function resizeHandler(e:Event = null):void 
+        private function resizeHandler(e:Event = null):void
         {
             output.width = stage.stageWidth;
             output.height = stage.stageHeight;
         }
-		
-	}
-	
+    
+    }
+
 }
